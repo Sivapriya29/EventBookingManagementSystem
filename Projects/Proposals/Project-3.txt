@@ -1,0 +1,10 @@
+TODO List
+----------
+Description
+------------
+Managing tasks using basic CRUD operations in this TODO List project.
+
+1. Users can create a task
+2. Users can modify/edit the created task
+3. Users can delete the task if it is completed
+4. User can login with username and password, and view their tasks list

@@ -1,0 +1,124 @@
+Project title: Event booking management
+
+1. INTRODUCTION:
+
+1.1 Purpose
+--------------
+ --> This document aims to specify the criteria for creating an event booking management system designed to enhance the efficiency of event management and booking processes.
+
+1.2 Objective
+--------------
+--> The objective of this application is to develop a system that manages all the data related to various events that takes place is different locations.
+--> The purpose is to maintain a centralized database of all event related information.
+--> The system will allow users to browse, book, and manage events such as conferences, seminars, workshops, and social gatherings. 
+--> It will serve the needs of both event organizers and attendees.
+
+1.3 Scope
+-----------
+The system will cover the following functionalities:
+--> User registration and authentication
+--> Event creation, management, and booking
+--> Admin dashboard for overseeing the system
+--> Communication features (notifications and messaging via email)
+
+1.4  Main Roles
+----------------
+--> Event Organizer: Entity responsible for hosting an event. (This will be added by admin)
+--> Speaker:  An individual who presents or delivers content, such as a speech, presentation, or workshop, during an event.(This will be added by admin)
+--> Attendee/User: Person registering to participate in an event.
+--> Admin: User with administrative privileges to manage the system.
+
+2. FUNCTIONAL REQUIREMENTS:
+
+First, there will be a dashboard page which lists the events and also contains information and contact details about event booking website
+It also contains Login and Signup options in the dashboard page.
+
+2.1 User Management
+----------------------
+User/Attendee has the following modules:
+ # Login/Signup
+ # Profile management
+ # User dashboard
+ # Book event
+ # Feedback
+ # Booking history
+ # Logout
+
+ 1. Signup
+  --> Users (attendees) should be able to register by providing necessary details like 
+  first name, last name, phone number, email, password and confirm password.
+  --> Once the user has completed the signup process, it will be redirected to Login page.
+  --> If the signup failed, it will be in the same signup page displaying the error.
+
+ 2. Login 
+  --> Registered users can securely log in to their accounts using email and password.
+  --> Once the user logs in successfully, it will be directed to user dashboard.
+ 
+ 3. Profile Management 
+  --> Users can update their profile information, like first name, last name, phone number, password and confirm password.
+
+ 4. User dashboard
+  --> Event Search: Attendees should be able to search and filter events based on categories (e.g., business, tech), dates, locations, and other criteria.
+  --> If the particular event is clicked it should view the details of that event 
+     - event name, event description, event date, event time, event type, venue, per person price, speaker name, organizer name, Tickets remaining
+  --> It should display "Book event" button at the end of the event details page.
+  --> It should be redirected to 'event booking' module once the user clicks the "Book event" button to register for the event.
+
+ 5. Book event
+  --> Attendees should be able to book tickets for events, specifying the number of tickets and attendee details.
+  --> Upon successful booking, tickets should be generated and delivered to attendees via email.
+ 
+ 6. Feedback
+  --> Users can share their feedback about the events they have attended by entering the message in that page.
+
+ 7. Booking history
+  --> User should be able to view the list of events they have already booked before.
+
+ 8. Logout
+  --> Once the user has completed their booking process, they can logout of the application by clicking the logout button below their profile
+  --> After logging out, the page will be redirected to the dashboard page from there the user can login again or signup.
+
+2.2 Admin panel
+-----------------
+--> Admin should have the ability to manage user accounts.
+--> Admin should be able to view, edit, or cancel events, and handle disputes or issues related to events.
+--> The system should provide reports on ticket sales, attendee lists, event lists, organizer and speaker lists.
+
+Admin has the following modules:
+ # Login
+ # Admin dashboard
+ # Add Event
+ # Users/Attendees list
+ # Feedback list
+ # Logout
+
+1. Login
+ --> Admin can securely log in to their accounts using default email and password stored in database.
+ --> Once the admin logs in successfully, it will be directed to admin dashboard.
+
+2. Admin dashboard
+ --> Event Search: Admin should be able to search and filter events based on categories (e.g., business, tech), dates, locations, and other criteria.
+ --> If the particular event is clicked it should view the details of that event, update the event details
+     - event name, event description, event date, event time, event type, venue, per person price, speaker name, organizer name, Tickets remaining
+ --> Admin can also be able to delete/cancel the event in the view event page
+ --> If the event is deleted by the admin, it should send the notification via email to the registered attendees.
+
+3. Add Event
+ --> Organizers should be able to create new events by filling in event details such as 
+       - event name, event description, event date, event time, event type, venue, no.of guests(maximum availability), per person price, speaker name, organizer name.
+ --> After adding the event, the event added should be displayed in the dashboard page.
+
+4. Users/Attendees list
+ --> Admin should be able to view the attendees details who have applied for the particular event in this page
+
+5. Feedback list
+ --> Admin should be able to view the feedback given by the attendees/users and should be able to reply to their feedback.
+
+6. Logout
+ --> Once the admin has completed their processes, they can logout of the application by clicking the logout button below their profile
+ --> After logging out, the page will be redirected to the dashboard page from there the admin can login again.
+
+3. CONCLUSION:
+
+ --> In conclusion, the event booking management project aims to develop a robust and user-friendly platform
+      for organizing and booking events efficiently. 

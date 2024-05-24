@@ -1,0 +1,19 @@
+Event booking management
+------------------------
+Event booking management is a process of organizing a professional and focussed event. 
+It involves choosing events based on categories, planning and organizing events such as wedding, musical concerts, birthday celebrations and
+also events conducted by colleges like culturals, symposium and workshops.
+The main objective of the project is to manage the details of Event, Organizers and Attendees
+
+Description
+------------
+The system allows only registered users to login and new users are allowed to register and then login to the application.
+
+1. It has Login and signup and can login/signup with username, password
+2. Admin - makes category and add events under each category
+3. Admin can Insert(add), update and delete events
+4. User books the event by checking the availability (no.of seats)
+5. User can add more than one event and unenroll from an event (update and delete operation)
+6. Admin --> Category, Events, EventId, Event name, Event date, event place, availability(no.of seats)
+7. User --> UserId, Username, email id, location, eventId, event name
+8. If user adds one event into their list, the availability(no.of seats) of the event will be reduced

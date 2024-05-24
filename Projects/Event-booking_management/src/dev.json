@@ -1,0 +1,10 @@
+{
+    "env" : "dev",
+    "port":"3800",
+    "app_name":"event_booking_management",
+    "database_url" : "postgres://postgres:root@localhost:5432/event_booking?sslmode=disable",
+    "max_db_conn" : 10,
+    "token_size": 256,
+    "access_token_expiry" : 24,
+    "refresh_token_expiry" : 2160
+}

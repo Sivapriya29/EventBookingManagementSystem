@@ -1,0 +1,17 @@
+E-Library management system
+----------------------------
+
+Description
+----------
+A Library Management System (LMS) is a software application that simplifies and automates the operations of libraries. 
+It is a complete system for managing library duties such as member management, monitoring and storing.
+The primary objective of an LMS is to properly organize and manage the resources available in a library, making it easier for librarians to conduct everyday operations and create a user-friendly experience for users.
+
+1. It has Login and signup and can login/signup with username, password
+2. It contains Admin module and Readers/Users module
+3. Admin has the record of - Book ID, Book name, Author, Publication date, No.of copies
+4. Each Reader/User has the record of - User Id, User name, Book Id, Book name, No.of.books taken, Issue date, Return date
+5. If one book is added in readers list then the no.of copies for that book will be reduced in the admin record - insert and update operation
+6. If all the copies of the book is taken by all readers, the book will be deleted in the admin record - delete operation
+7. User can add/update the book and also delete the book.
+8. User can be able to view their list of books taken with the book details.

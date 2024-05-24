@@ -1,0 +1,806 @@
+Project title: Event Booking management
+
+1. INTRODUCTION:
+ --> The Event Booking Management Project is a software system developed in Go (Golang) that allows users to manage and book events. 
+ --> This technical documentation outlines the database model of the project.
+
+
+2. SYSTEM OVERVIEW:
+ --> The system facilitates the management of events, 
+     including creation, booking, and retrieval of event-related information.
+ --> It allows the admin to add, update and delete events.
+ --> Users and admin can view the list of all the events and also the tickets remaining for each event.
+
+
+3. KEY FEATURES:
+ --> User authentication and authorization
+ --> Event creation, modification, and deletion
+ --> Booking events by users
+ --> Viewing booked events
+ --> Admin functionalities for user and event management
+
+
+4. DATABASE MODEL:
+  We will utilize a relational database to store event and users information. Here's the table structure:
+
+  **Tablename: users**
+  Column Name           Data Type            Description                                Primary Key                 Foreign Key
+  id                    INT                  Unique identifier for each user            YES (Auto-Increment)        No
+  first_name            VARCHAR(50)          First name of the user                     No                          No
+  last_name             VARCHAR(50)          Last name of the user                      No                          No
+  phone_number          VARCHAR(10)          Mobile number of the user                  No                          No
+  email                 VARCHAR(50)          email id of the user                       No                          No
+  password              VARCHAR(50)          password for the email to login            No                          No
+  role                  VARCHAR(10)          select user/admin role from the dropdown   No                          No
+  created_at            TIMESTAMP            Date and time when the account is created  No                          No
+
+  **Tablename: events**
+  Column Name           Data Type            Description                                          Primary Key                  Foreign Key
+  id                    INT                  Unique identifier for each event                     YES (Auto-Increment)         No
+  event_name            VARCHAR(50)          Name of the event                                    No                           No
+  event_description     VARCHAR(250)         Description about the event                          No                           No
+  event_date            date                 Date when the event is occurring                     No                           No
+  event_time            time                 Time of the event occurring                          No                           No
+  event_type            VARCHAR(50)          Type of the event                                    No                           No
+  location              VARCHAR(250)         Address and location of the event                    No                           No
+  speaker_name          VARCHAR(50)          Name of the speaker who is driving the event         No                           No
+  organizer_name        VARCHAR(50)          Name of the organizer, organizing the event          No                           No
+  capacity              INT                  Maximum availability of seats for the event          No                           No
+  per_person_price      INT                  ticket price per person for the event                No                           No
+  created_at            timestamp            Date and time of when the event is created by admin  No                           No
+  updated_at            timestamp            Date and time of when the event is updated by admin  No                           No
+  deleted_at            timestamp            Date and time of when the event is deleted by admin  No                           No
+
+  **Tablename: bookings**
+  Column Name           Data Type            Description                                             Primary Key               Foreign Key
+  id                    INT                  Unique identifier for each booking                      YES (Auto-Increment)      No
+  event_id              INT                  Unique identifier of the particular event               No                        YES (primary key of 'events' table)
+  user_id               INT                  Unique identifier of the user                           No                        YES (primary key of 'users' table)
+  number_of_tickets     INT                  No of persons attending the event                       No                        No
+  total_amount          INT                  Calculated amount (per_person_price*number_of_tickets)  No                        No
+  created_at            timestamp            Date and time of when the event is booked by the user   No                        No
+
+  **Tablename: feedbacks**
+  Column Name            Data Type            Description                                             Primary Key                Foreign Key
+  id                     INT                  Unique identifier for each feedback                    YES (Auto-Increment)       No
+  user_id                INT                  Unique identifier for each user                        No                         YES (primary key of 'users' table)
+  event_id               INT                  Unique identifier of the particular event              No                         YES (primary key of 'events' table)
+  rating                 INT                  user to give rating about the event attended out of 5  No                         No
+  comments               VARCHAR(300)         Description/feedback about the event attended          No                         No 
+ 
+  **Tablename: payments**
+  Column Name           Data Type            Description                                             Primary Key                Foreign Key
+  user_id               INT                  Unique identifier for user                              No                         YES (primary key of 'users' table)
+  event_id              INT                  Unique identifier for event                             No                         YES (primary key of 'event' table)
+  id                    INT                  Unique id for payment                                   YES (Auto-Increment)       YES
+  amount                DECIMAL(10, 2)       The amount paid for the event                           No                         No
+  card_number           VARCHAR(16)          The credit/debit card number used for payment           No                         No
+  cvv                   VARCHAR(3)           3 digit pin number in card                              No                         No
+  card_holder           VARCHAR(255)         The name of the cardholder                              No                         No
+  expiry_month          VARCHAR(2)           month of expiry of the atm card                         No                         No
+  expiry_year           VARCHAR(4)           year of expiry of the atm card                          No                         No
+  payment_date          TIMESTAMP            date and time when the payment was made                 No                         No
+
+
+5. TECHNOLOGY STACK:
+
+      **Backend framework:**
+  --> Go: The primary programming language used as backend development for implementing the system.
+  --> PostgreSQL: To store and manage event and booking data.
+  --> Gin: A lightweight HTTP web framework for GoLang.
+  --> GORM: A powerful Object-Relational Mapping (ORM) library for GoLang.
+  --> GOOSE: A database migration tool used to manage database schema changes in Go applications.
+  --> JWT (JSON Web Tokens): For securing and authenticating API requests.
+
+      **Front-end framework:**
+  --> JavaScript framework Angular is used for the front end development. 
+  --> Angular is an open-source front-end framework used to develop single page application.
+
+
+6. KEY COMPONENTS:
+
+  6.1. User Authentication:
+    ---------------------
+     Implement user authentication using libraries like JWT (JSON Web Token) to restrict access to authorized administrators.
+
+  6.2. Models:
+     -------
+     6.2.1. **User Model**
+
+        type User struct {
+        user_id        int
+        first_name     string
+        last_name      string
+        phone_number   string
+        email          string
+        password       string
+     }
+
+     6.2.2. **Event Model**
+
+        type Event struct {
+            event_id          int
+            event_name        string
+            event_description string
+            event_date        date
+            event_time        time
+            event_type        string
+            location          string
+            speaker_name      string
+            organizer_name    string
+            capacity          int
+            per_person_price  int
+        }
+
+     6.2.3. **Booking Model**
+
+        type Booking struct {
+            booking_id           int
+            event_id             int
+            user_id              int
+            number_of_tickets    int
+            total_amount         int
+         }
+
+     6.2.4. **Feedback Model**
+       
+        type Feedback struct {
+            feedback_id     int
+            user_id         int
+            event_id        int
+            rating          int
+            comments        string
+        }
+
+    6.2.5. **Payment Model**
+
+        type PaymentRequest struct {
+             user_id       int
+             event_id      int
+             payment_id    int
+             amount        float64
+             card_number   string
+             cvv           string
+             card_holder   string
+             expiry_month  string
+             expiry_year   string
+        }
+
+        type paymentResponse struct {
+             success bool
+             Message string
+        }
+
+    6.2.6 Model Relationships:
+        --------------------
+
+      **User-Event Relationship**
+        --> A user can create multiple events (one-to-many relationship).
+
+        type User struct {
+        user_id        int
+        first_name     string
+        last_name      string
+        phone_number   string
+        email          string
+        password       string
+        Events         []Event
+     }
+
+      **User-Booking and Event-Booking Relationships**
+        --> A user can make multiple bookings (one-to-many relationship).
+
+        type User struct {
+        user_id        int
+        first_name     string
+        last_name      string
+        phone_number   string
+        email          string
+        password       string
+        Booking        []Booking
+     }
+
+         --> An event can have multiple bookings (one-to-many relationship).
+
+         type Event struct {
+            event_id          int
+            event_name        string
+            event_description string
+            event_date        date
+            event_time        time
+            event_type        string
+            location          string
+            speaker_name      string
+            organizer_name    string
+            capacity          int
+            per_person_price  int
+            Booking           []Booking
+        }
+
+      **Events and Feedback Relationship**
+       --> Each event can have multiple feedback entries associated with it.
+       --> Therefore, there is also a one-to-many relationship between Events and Feedback.
+
+       type Event struct {
+         event_id          int
+         event_name        string
+         event_description string
+         event_date        date
+         event_time        time
+         event_type        string
+         location          string
+         speaker_name      string
+         organizer_name    string
+         capacity          int
+         per_person_price  int
+         Feedback          []Feedback
+       }
+
+  6.3. Database Interaction:
+     ---------------------
+     --> Utilize a database driver - pq for PostgreSQL to connect to the database and 
+         perform CRUD (Create, Read, Update, Delete) operations on events,bookings and feedback.
+     --> Implement methods/functions to interact with the database using database/sql and
+         possibly an ORM like GORM.
+
+  6.4. API Endpoints:
+      --------------
+      **6.4.1 Authentication Endpoints**
+        1. Signup
+         Endpoint: POST --> /signup
+         Description: Register as a user
+         Request Body:
+         {
+          "first_name" : "Sivapriya",
+          "last_name" : "A",
+          "phone_number" : "85314200547",
+          "email" : "siva@gmail.com",
+          "password" : "siva123@#"
+         }
+
+         Response (Success): (HTTP Status Code: 200 OK)
+         {
+          "message" : "Signup completed successfully"
+         }
+
+         Response (Failure): (HTTP Status Code: 400 Bad Request)
+         {
+           "error": "Invalid request body. Please provide a valid JSON object with 'name' and 'email' fields."
+         }
+
+        2. User Login
+         Endpoint: POST --> /login
+         Description: Login as a user
+         Request Body:
+         {
+          "email": "user1@gmail.com",
+          "password": "password123"
+          }
+
+          Response (Success): (HTTP Status Code: 200 OK)
+          {
+            "success": true,
+            "message": "User authenticated successfully",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            }
+
+          Response (Failure): Invalid Credentials (HTTP Status Code: 401 Unauthorized):
+          {
+            "success": false,
+            "error": "Invalid username or password"
+            }
+
+          Response (Failure): Missing Fields (HTTP Status Code: 400 Bad Request):
+          {
+            "success": false,
+            "error": "Missing required fields. Please provide both email and password."
+            }
+
+
+        3. Admin Login:
+         Endpoint: POST --> /login
+         Description: Login as a admin
+         Request Body:
+         {
+          "username": "admin1",
+          "password": "adminpassword"
+          }
+
+         Response (Success): (HTTP Status Code: 200 OK)
+         {
+          "success": true,
+          "message": "Admin authenticated successfully",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+
+         Response (Failure): Invalid Credentials (HTTP Status Code: 401 Unauthorized):
+         {
+          "success": false,
+          "error": "Invalid username or password"
+          }
+
+         Response (Failure): Missing Fields (HTTP Status Code: 400 Bad Request):
+          {
+            "success": false,
+            "error": "Missing required fields. Please provide both email and password."
+            }
+
+      **6.4.2 Event Endpoints**
+        1. Create Event:
+         Endpoint: POST --> /events
+         Description: Create a new event
+         Request Body:
+         {
+          "event_name" : "Technothlon-24-Test",
+          "event_description" : "A Technical hackathon event conducted to expose student's ideas",
+          "event_date" : "01/06/2024",
+          "event_time" : "9:00 AM to 12:PM",
+          "event_type" : "College and campus events",
+          "location" : "IIT Guwahati, Assam, India",
+          "speaker_name" : "HOD of IT department",
+          "organizer_name" : "IIT Guwahati",
+          "capacity" : "1000",
+          "per_person_price" : "200"
+         }
+
+         Response (Success): (HTTP Status Code: 200 OK)
+         {
+          "event_name" : "Technothlon-24-Test",
+          "event_description" : "A Technical hackathon event conducted to expose student's ideas",
+          "event_date" : "01/06/2024",
+          "event_time" : "9:00 AM to 12:PM",
+          "event_type" : "College and campus events",
+          "location" : "IIT Guwahati, Assam, India",
+          "speaker_name" : "HOD of IT department",
+          "organizer_name" : "IIT Guwahati",
+          "capacity" : "1000",
+          "per_person_price" : "200",
+          "message" : "Event created successfully"
+          }
+
+         Response (Failure): Missing Fields (HTTP Status Code: 400 Bad Request)
+         {
+          "error": "Missing required fields. Please provide event name, date, and location."
+          }
+
+        2. List all events:
+         Endpoint: GET --> /events
+         Description: Retrieve a list of all available events.
+         Request Body:
+         {}
+
+         Success Response (HTTP Status Code: 200 OK):
+         {
+          "events": [
+            {
+      "event_id": "123456789",
+      "event_name": "Summer Music Festival",
+      "event_description": "Join us for a day of live music and fun in Central Park!"
+      "event_date": "2024-08-15",
+      "event_time": "9:00 AM to 12:PM",
+      "event_type" : "College and campus events",
+      "location": "Central Park",
+      "speaker_name" : "HOD of IT department",
+      "organizer_name" : "IIT Guwahati",
+      "capacity" : "1000",
+      "per_person_price" : "200",     
+    },
+    {
+      "event_id": "987654321",
+      "event_name": "Food Truck Festival",
+      "event_description": "Explore a variety of delicious food from food trucks around the city."
+      "event_date": "2024-09-20",
+      "event_time": "9:00 AM to 12:PM",
+      "event_type" : "College and campus events",
+      "location": "Downtown Square",
+      "speaker_name" : "HOD of IT department",
+      "organizer_name" : "IIT Guwahati",
+      "capacity" : "1000",
+      "per_person_price" : "150",      
+      }
+      ]
+      }
+
+         Failure Response - No Events Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "No events found."
+          }
+
+        3. Get Event details by Id:
+         Endpoint: GET --> /events/:event_id
+         Description: Retrieve details about the particular event.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 200 OK):
+          {
+          "event_id": "123456789"
+          "event_name" : "Technothlon-24-Test",
+          "event_description" : "A Technical hackathon event conducted to expose student's ideas",
+          "event_date" : "01/06/2024",
+          "event_time" : "9:00 AM to 12:PM",
+          "event_type" : "College and campus events",
+          "location" : "IIT Guwahati, Assam, India",
+          "speaker_name" : "HOD of IT department",
+          "organizer_name" : "IIT Guwahati",
+          "capacity" : "1000",
+          "per_person_price" : "200"
+          }
+
+         Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Event not found."
+          }
+
+         Failure Response - Invalid Event ID (HTTP Status Code: 400 Bad Request):
+         {
+          "error": "Invalid event ID. Please provide a valid event ID."
+          }
+       
+        4. Update event details:
+         Endpoint: PUT --> /events/:event_id
+         Description: Update the event details for the particular event.
+         Request body:
+          {
+          "event_name" : "Updated Technothlon-24-Test",
+          "event_description" : "A Technical hackathon event conducted to expose student's ideas",
+          "event_date" : "02/07/2024",
+          "event_time" : "9:00 AM to 12:PM",
+          "event_type" : "College and campus events",
+          "location" : "IIT Guwahati, Assam, India",
+          "speaker_name" : "HOD of IT department",
+          "organizer_name" : "IIT Guwahati",
+          "capacity" : "1000",
+          "per_person_price" : "200"
+          }
+
+          Success Response (HTTP Status Code: 200 OK):
+          {
+          "event_name" : "Updated Technothlon-24-Test",
+          "event_description" : "A Technical hackathon event conducted to expose student's ideas",
+          "event_date" : "02/07/2024",
+          "event_time" : "9:00 AM to 12:PM",
+          "event_type" : "College and campus events",
+          "location" : "IIT Guwahati, Assam, India",
+          "speaker_name" : "HOD of IT department",
+          "organizer_name" : "IIT Guwahati",
+          "capacity" : "1000",
+          "per_person_price" : "200",
+          "message": "Event details updated successfully."
+          }
+
+          Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+          {
+            "error": "Event not found."
+            }
+
+          Failure Response - Invalid Request (HTTP Status Code: 400 Bad Request):
+          {
+            "error": "Invalid request body. Please provide valid event details."
+            }
+        
+        5. Delete event details:
+         Endpoint: DELETE --> /events/:event_id
+         Description: Delete an event.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 204 No Content):
+         {
+          "message" : "Event deleted successfully"
+         }
+
+         Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Event not found."
+          }
+
+      **6.4.3 Booking Endpoints**
+        1. Create booking/Register:
+         Endpoint: POST --> /bookings
+         Description: Register/book an event.
+         Request body:
+         {
+          "event_id" : "1233456",
+          "user_id" : "2509",
+          "number_of_tickets" : 2,
+          "total_amount" : 400
+         }
+
+         Success Response (HTTP Status Code: 201 Created):
+         {
+          "booking_id": "abcdef123456",
+          "event_id": "1233456",
+          "user_id": "2509",
+          "number_of_tickets": 2,
+          "message": "Booking successful."
+          }
+
+         Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Event not found."
+          }
+
+         Failure Response - Insufficient Tickets (HTTP Status Code: 400 Bad Request):
+         {
+          "error": "Insufficient tickets available."
+          }
+
+        2. Cancel booking:
+         Endpoint: DELETE --> /bookings/:booking_id
+         Description: Cancel a booking by booking id.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 204 No Content):
+         {
+          "message" : "Booking deleted successfully"
+         }
+
+         Failure Response - Booking Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Booking not found."
+          }
+
+        3. Get booking details:
+         Endpoint: GET --> /bookings/:booking_id
+         Description: Retrieve details of a specific booking by ID.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 200 OK):
+         {
+          "booking_id": "abcdef123456",
+          "event_id": "1233456",
+          "user_id": "2509",
+          "number_of_tickets": 2,
+          "message": "Booking details retrieved successfully."
+          }
+
+         Failure Response - Booking Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Booking not found."
+          }
+    
+      **6.4.4 Feedback Endpoints**
+        1. Submit Feedback:
+         Endpoint: POST --> /feedbacks
+         Description: Submit feedback for a specific event.
+         Request body:
+         {
+          "user_id": "987654321",
+          "event_id": "123456789",
+          "rating": 4,
+          "comments": "The event was fantastic!"
+          }
+
+         Success Response (HTTP Status Code: 201 Created):
+         {
+          "feedback_id": "feedback123",
+          "user_id": "987654321",
+          "event_id": "123456789",
+          "rating": 4,
+          "comment": "The event was fantastic!",
+          "message": "Feedback submitted successfully."
+          }
+
+         Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Event not found."
+          }
+
+         Failure Response - Invalid Rating Value (HTTP Status Code: 400 Bad Request):
+         {
+          "error": "Invalid rating value. Rating must be between 1 and 5."
+          }
+
+        2. Get Event Feedback:
+         Endpoint: GET --> /event/:event_id/feedbacks
+         Description: Retrieve all feedback for a specific event.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 200 OK):
+         {
+          "feedbacks": [
+            {
+              "feedback_id": "feedback123",
+              "user_id": "987654321",
+              "event_id": "123456789",
+              "rating": 4,
+              "comment": "The event was fantastic!"
+              },
+              {
+                "feedback_id": "feedback456",
+                "user_id": "123456789",
+                "event_id": "123456789",
+                "rating": 5,
+                "comment": "Absolutely loved it!"
+                }
+                ]
+                }
+
+         Failure Response - Event Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Event not found."
+          }
+
+        3. Get User Feedback:
+         Endpoint: GET --> /user/:user_id/feedbacks
+         Description: Retrieve all feedback submitted by a specific user.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 200 OK):
+         {
+          "feedbacks": [
+            {
+              "feedback_id": "feedback123",
+              "user_id": "987654321",
+              "event_id": "123456789",
+              "rating": 4,
+              "comment": "The event was fantastic!"
+              },
+              {
+                "feedback_id": "feedback456",
+                "user_id": "987654321",
+                "event_id": "987654321",
+                "rating": 5,
+                "comment": "Amazing experience!"
+                }
+                ]
+                }
+
+         Failure Response - User Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "User not found."
+          }
+
+        4. Delete Feedback:
+         Endpoint: DELETE --> /feedbacks/:feedback_id
+         Description: Delete feedback by feedback ID.
+         Request body:
+         {}
+
+         Success Response (HTTP Status Code: 204 No Content):
+         {
+          "message" : "Feedback deleted successfully"
+         }
+
+         Failure Response - Feedback Not Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "Feedback not found."
+          }
+
+      **6.4.5 Payment Endpoints**
+        1. Make payment:
+         Endpoint: POST --> /payments
+         Description: process and make payment.
+         Request body:
+         {
+          "user_id": "987654321",
+          "event_id" : "123456789",
+          "amount": 50.00,
+          "card_number": "1234567890123456",
+          "cvv": "123",
+          "card_holder": "sivapriya",
+          "expiry_month": "10",
+          "expiry_year": "26"     
+          }
+
+         Success Response (HTTP Status Code: 201 Created):
+          {
+          "payment_id": "payment123",
+          "user_id": "987654321",
+          "event_id" : "123456789",
+          "amount": 50.00,
+          "status": "success",
+          "message": "Payment successful."   
+          }
+
+         Failure Response - Insufficient Funds (HTTP Status Code: 400 Bad Request):
+         {
+          "error": "Insufficient funds in the account/Invalid card number."
+          }
+
+        2. Display payment details:
+          Endpoint: GET --> /event/:event_id/payments
+          Description: display the payment status and details
+          Request body: 
+          {}
+
+          Success Response (HTTP Status Code: 200 OK):
+          {
+            "payment_id": "payment123",
+            "user_id": "987654321",
+            "event_id" : "123456789",
+            "amount": 50.00,
+            "status": "success"
+            }
+
+         Failure Response - No Payments Found (HTTP Status Code: 404 Not Found):
+         {
+          "error": "No payments found."
+          }
+
+
+  6.5. Error Handling:
+      ----------------
+      1. Database Interaction
+      Query Execution Errors: 
+          Handle errors that may occur during database queries, such as connection errors, syntax errors, or constraint violations.
+      Database Constraints: 
+          Enforce database constraints (foreign keys, unique constraints) to prevent data integrity issues and handle constraint violation errors gracefully.
+          
+      2. API Endpoints
+      Request Parsing Errors: 
+          Handle errors that occur during request parsing, such as invalid JSON or missing required fields.
+      Response Errors: 
+          Return appropriate HTTP status codes and error messages in response to client requests.
+          HTTP status codes:
+          1. http.StatusBadRequest(400) - if it is wrong api or unable to bind request body
+          2. http.StatusOk (200)- if the request body is parsed and stored successfully
+          3. http.StatusNotFound (401)- if the particular user or id is not found in database
+          4. http.StatusInternalServerError (500) - if it is failed to connect to database
+      
+      3. Business Logic
+      Validation Errors: 
+          Validate input data and return validation errors with appropriate error messages.
+      Custom Error Types: 
+          Define custom error types to differentiate between different types of errors and handle them accordingly.
+
+      4. Logging
+      Error Logging: 
+          Log errors with context to aid in debugging and troubleshooting.
+
+      5. Recovery Mechanisms
+      Panic Recovery: 
+          Use deferred functions (defer) and the recover function to recover from panics and prevent application crashes.
+
+
+7. SECURITY CONSIDERATIONS:
+
+ --> User Authentication: Implement secure authentication mechanisms such as JWT (JSON Web Tokens) or OAuth to verify the identity of users accessing the system.
+ --> Authorization: Enforce access control mechanisms to restrict access to sensitive resources and functionalities based on user roles and permissions.
+ --> Prepared Statements: Use prepared statements or parameterized queries to prevent SQL injection attacks by separating SQL logic from user input.
+ --> Password Policies: Enforce strong password policies (e.g., minimum length, complexity requirements) to enhance password security.
+
+
+8. DEPLOYMENT:
+
+  8.1. Dockerize the Application
+   --> Create a Dockerfile in the root directory of the project to define the container image.
+   --> Specify the base image, environment variables, dependencies, and commands to build and run the application.
+
+  8.2. Build Docker Image
+   --> Open a terminal and navigate to the root directory of the project.
+   --> Build the Docker image using the docker build command.
+   --> Command: docker build -t event-booking-app .
+
+  8.3. Run Docker Container
+   --> Run the Docker container using the built image, specifying any necessary environment variables and port mappings.
+   --> Command: docker run -d -p 8080:8080 event-booking-app
+
+  8.4. Verify Deployment
+   --> Check the logs of the running container to ensure that the application started successfully.
+   --> Command: docker logs event-booking-container
+   --> Test the application by accessing it through a web browser or making API requests using Postman.
+
+
+9. TESTING:
+
+  - Testing is crucial for ensuring the reliability, functionality, and security of the Event Booking Management System. 
+  - Here are some testing methods and strategies you can employ:
+
+  1. Unit Testing
+   Purpose: Test individual components (functions, methods) in isolation to ensure they work as expected.
+   Tools: mockgen for unit testing in the Event Booking Management project, particularly for mocking dependencies such as database interactions, external service calls, or complex dependencies to isolate the unit under test.
+         mockgen is a tool provided by the mockgen package in Go, which generates mock implementations of interfaces.
+   Focus Areas: Business logic, database interactions, input validation, error handling
+
+   2. API Testing
+   Purpose: Test API endpoints to ensure they handle requests and responses correctly.
+   Tools: Postman.
+   Focus Areas: Request validation, response validation, error handling.
+
+   3. Manual Testing

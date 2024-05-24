@@ -1,0 +1,745 @@
+{
+	"info": {
+		"_postman_id": "d592a129-5754-47fb-8bcb-576ee88ad9a9",
+		"name": "event-booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17432156"
+	},
+	"item": [
+		{
+			"name": "Authentication/Authorization",
+			"item": [
+				{
+					"name": "admin login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"sivax@gmail.com\",\r\n    \"password\" : \"Aspsg294501!\",\r\n    \"role\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\" : \"kokila\",\r\n    \"last_name\" : \"devi\",\r\n    \"email\" : \"koks@gmail.com\",\r\n    \"password\" : \"kok123@@\",\r\n    \"mobile\" : \"9652014523\",\r\n    \"role\" : \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"koks@gmail.com\",\r\n    \"password\" : \"kok123@@\",\r\n    \"role\" : \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event module",
+			"item": [
+				{
+					"name": "create event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "nKqPt1ZTDAGoR5hCKmoeRzvsS72FgBCJTP85GXUIXepGcBKwjc5oyQFChIcfh7Xq2r2z5zuQ4Q4ki6li4nObaY32lzv4biYszyd2KQluCfbTjV9caAuVQV6ZNHc9fFyc9RjRWgeLSN8AOimLW9yIFyaC6gZGgRBpTIsc5rnYvg3zaPOZFhSaYhU6U2od71e5azgGXIXXrKdn4ftBRhuUAtKmo7DlZ1FhEAnHHLWFBGEemNvUuvJicDnilKB8OpX4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_name\": \"Art and Culture Expo 2024\",\r\n    \"event_description\": \"Experience a celebration of art and culture at the Art and Culture Expo 2024, organized by the Cultural Arts Society. This event will showcase a variety of art forms including painting, sculpture, and traditional crafts, along with live performances and interactive workshops.\",\r\n    \"event_date\": \"2024-07-22T10:00:00Z\",\r\n    \"event_time\": \"2024-07-22T10:00:00Z\",\r\n    \"event_type\": \"Exhibitions\",\r\n    \"location\": \"Chennai\",\r\n    \"speaker_name\": \"Amit Verma\",\r\n    \"organizer_name\": \"Cultural Arts Society\",\r\n    \"capacity\": 1000,\r\n    \"per_person_price\": 1500\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "copTAuE3NCPEKU2z33aC3afQthhB4jzIkfepgpW937cUUeWXRV569jL6VqkOvPjUQvXhSajlK7roO81Qw8fwHt2Qyrp55jKLczWl3eixiLIC5WKpwPXGcSAEt5vTB6EbWxI1EKusE3unrlrTDaWUQvDY4yGCPXdSdiOOuMlnJqEMqUcGSr6NKomJAuSakEFvcsQrpxgmvfBhtuixwq35MKBTRrjVi3sZiawGg8wZ59d42pnFZuTijHaMBiHwzp11",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_name\": \"Updated Global Health Conference 2024\",\r\n    \"event_description\": \"Join us at the Global Health Conference 2024, organized by HealthWorld. This conference will feature keynote speeches, panel discussions, and workshops focused on the latest advancements and challenges in global healthcare.\",\r\n    \"event_date\": \"2024-05-29T11:29:00Z\",\r\n    \"event_time\": \"2024-05-29T11:29:00Z\",\r\n    \"event_type\": \"Conferences\",\r\n    \"location\": \"New Delhi\",\r\n    \"speaker_name\": \"Dr. Sarah Johnson\",\r\n    \"organizer_name\": \"HealthWorld\",\r\n    \"capacity\": 798,\r\n    \"per_person_price\": 2500\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/events/af2eb614-b343-4e4e-a91c-ecdd9b0d43ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"events",
+								"af2eb614-b343-4e4e-a91c-ecdd9b0d43ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all events",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get event by event_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/events/438aedae-0589-46f0-9462-9eeb1463796f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"events",
+								"438aedae-0589-46f0-9462-9eeb1463796f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "copTAuE3NCPEKU2z33aC3afQthhB4jzIkfepgpW937cUUeWXRV569jL6VqkOvPjUQvXhSajlK7roO81Qw8fwHt2Qyrp55jKLczWl3eixiLIC5WKpwPXGcSAEt5vTB6EbWxI1EKusE3unrlrTDaWUQvDY4yGCPXdSdiOOuMlnJqEMqUcGSr6NKomJAuSakEFvcsQrpxgmvfBhtuixwq35MKBTRrjVi3sZiawGg8wZ59d42pnFZuTijHaMBiHwzp11",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/events/168c7c94-cecc-459c-8947-16dee0bae1ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"events",
+								"168c7c94-cecc-459c-8947-16dee0bae1ef"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking module",
+			"item": [
+				{
+					"name": "book event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Ecx96DupuSiAJinu2cnFbYS11ANIPFIJ5CWCQP6Z7CVg7cjMtVEGnmh6uWRHWMXcVEb5K8KIAj7jozsKbp7vxWO2RRUKzfwdgbO4moejW4SQtBFF1FjVns9zGAFYeFIYXXlL5lWj5FQOekbWvSxZB4WOThei2kpA6z6H6RveV3eYvFgMmYDxN3tGxmX6B9kgCqQnMJoWKmBmKw8uqbLv2zYMNcL6X5agB31ZNskqBjHgjavwPHzRFOssQeqe77nS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_id\": \"ac5b6497-0805-4154-adc0-add4d6d78fd0\",\r\n    \"user_id\": \"20ca427d-68ca-4d58-acb9-096bf7e779fd\",\r\n    \"no_of_tickets\" : 10,\r\n    \"total_amount\" : 150.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete booking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/bookings/a08e590e-0c64-4f3c-bb37-a03faef530ca",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"bookings",
+								"a08e590e-0c64-4f3c-bb37-a03faef530ca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get booking by booking_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/bookings/3d9c19a4-c084-42c2-8f5b-e5adcd72fb60",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"bookings",
+								"3d9c19a4-c084-42c2-8f5b-e5adcd72fb60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get booking by event_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/event/438aedae-0589-46f0-9462-9eeb1463796f/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"event",
+								"438aedae-0589-46f0-9462-9eeb1463796f",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get booking by user_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/user/ff6083ec-972c-430b-aebd-b062db6d1895/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"user",
+								"ff6083ec-972c-430b-aebd-b062db6d1895",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feedback module",
+			"item": [
+				{
+					"name": "add feedback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"ff6083ec-972c-430b-aebd-b062db6d1895\",\r\n    \"event_id\": \"af2eb614-b343-4e4e-a91c-ecdd9b0d43ec\",\r\n    \"rating\": 5.0,\r\n    \"comments\": \"amazing experience, would attend again!\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/feedbacks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all feedbacks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/feedbacks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete feedback",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/feedbacks/d47d5315-b341-4611-b0f3-fc56bd92b3fa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"feedbacks",
+								"d47d5315-b341-4611-b0f3-fc56bd92b3fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get feedback by feedback_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/feedbacks/26f119f4-ee99-46e3-834a-91c3aa791ae8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"feedbacks",
+								"26f119f4-ee99-46e3-834a-91c3aa791ae8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get feedback by event_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/event/b8113d99-f812-44ee-9515-6205b2a35424/feedbacks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"event",
+								"b8113d99-f812-44ee-9515-6205b2a35424",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get feedback by user_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/user/20ca427d-68ca-4d58-acb9-096bf7e779fd/feedbacks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"user",
+								"20ca427d-68ca-4d58-acb9-096bf7e779fd",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment module",
+			"item": [
+				{
+					"name": "create payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"booking_id\": \"3d9c19a4-c084-42c2-8f5b-e5adcd72fb60\",\r\n    \"user_id\": \"ff6083ec-972c-430b-aebd-b062db6d1895\",\r\n    \"event_id\": \"438aedae-0589-46f0-9462-9eeb1463796f\",\r\n    \"amount\": 250,\r\n    \"card_number\": \"34567890\",\r\n    \"expiry_month\": \"09\",\r\n    \"expiry_year\": \"28\",\r\n    \"cvv\": \"321\",\r\n    \"card_holder\": \"Emily Johnson\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3800/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete payment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3800/v1/payments/4227a30e-98b6-4fe6-bfbb-3a4a7ce0a57e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3800",
+							"path": [
+								"v1",
+								"payments",
+								"4227a30e-98b6-4fe6-bfbb-3a4a7ce0a57e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3800/v1/access-token?refresh_token=lq8GsJJc6yuVCzQG4b2FCZUq8HVRSSiWmfkdMMXRIVvwqDj3v2BdSYagJdkzCIaDV2pCaGOS6GN1SwGgNIu2TGKuxlEKnSuYNbNdUvsCHkY8kBiwhvcrPiYI3v215n8wQQJE3qiGDz4BDowzSjNfB7J4DxvNVpksD2Np3G3mfrn9EsuEPvajOVtcdhkF4rlYRORcEZqtjBM",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3800/v1/access-token?refresh_token=lq8GsJJc6yuVCzQG4b2FCZUq8HVRSSiWmfkdMMXRIVvwqDj3v2BdSYagJdkzCIaDV2pCaGOS6GN1SwGgNIu2TGKuxlEKnSuYNbNdUvsCHkY8kBiwhvcrPiYI3v215n8wQQJE3qiGDz4BDowzSjNfB7J4DxvNVpksD2Np3G3mfrn9EsuEPvajOVtcdhkF4rlYRORcEZqtjBMvCFCAzUa4MndrOarFEeaM3Ou14pnBHHVzQTNL6vvpm5RHJaKrhjuc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3800",
+					"path": [
+						"v1",
+						"access-token"
+					],
+					"query": [
+						{
+							"key": "refresh_token",
+							"value": "lq8GsJJc6yuVCzQG4b2FCZUq8HVRSSiWmfkdMMXRIVvwqDj3v2BdSYagJdkzCIaDV2pCaGOS6GN1SwGgNIu2TGKuxlEKnSuYNbNdUvsCHkY8kBiwhvcrPiYI3v215n8wQQJE3qiGDz4BDowzSjNfB7J4DxvNVpksD2Np3G3mfrn9EsuEPvajOVtcdhkF4rlYRORcEZqtjBMvCFCAzUa4MndrOarFEeaM3Ou14pnBHHVzQTNL6vvpm5RHJaKrhjuc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3800/v1/accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sgJsvWlD2ld5sj3wO2ZhcDAwR2ddQblhKDV3plOMgtoNeNCPyP36vtanIfBDGb5Trv8zs6pKimN1nNKTxVKDm2HjGa2pLw2I1mNanKM3nrowdXCg6ATkRwj4ubPDbkpVlqvdbHqD7ij5cDpQmAwtGA7uBGAS3YvJxTpUZDRaC7zx8lHhKTOutWuzTAORwEuVxssSFX1KalNSEhtdo7QgwkYLzbIN9yuasO8y4WPQDLeslyv3TK65CZ2iHUT6TTJ2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3800/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3800",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
